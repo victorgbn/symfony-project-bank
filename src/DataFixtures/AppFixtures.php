@@ -18,18 +18,30 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        $user = new User();
-        $user->setUsername('admin');
-        $user->setName('admin');
-        $user->setLastname('A');
-        $user->setBirthday(new \DateTime('2000-07-16'));
-        $user->setRoles(['ROLE_ADMIN']);
-        $user->setPassword($this->passwordEncoder->encodePassword(
-            $user,
+        $userAdmin = new User();
+        $userAdmin->setUsername('admin');
+        $userAdmin->setName('admin');
+        $userAdmin->setLastname('A');
+        $userAdmin->setBirthday(new \DateTime('2000-07-16'));
+        $userAdmin->setRoles(['ROLE_ADMIN']);
+        $userAdmin->setPassword($this->passwordEncoder->encodePassword(
+            $userAdmin,
             'admin01'
         ));
 
+        $user = new User();
+        $user->setUsername('toto');
+        $user->setName('toto');
+        $user->setLastname('T');
+        $user->setBirthday(new \DateTime('2000-07-16'));
+        $user->setRoles(['ROLE_USER']);
+        $user->setPassword($this->passwordEncoder->encodePassword(
+            $user,
+            'toto01'
+        ));
+
         $manager->persist($user);
+        $manager->persist($userAdmin);
         $manager->flush();
     }
 }
