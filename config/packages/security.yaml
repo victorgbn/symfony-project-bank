@@ -41,5 +41,7 @@ security:
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/register, roles: ROLE_ADMIN }
+        - { path: ^/user, roles: ROLE_ADMIN }
+        - { path: ^/bank/account/, roles: ROLE_ADMIN }
         - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/$, roles: IS_AUTHENTICATED_FULLY }
