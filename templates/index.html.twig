@@ -1,3 +1,26 @@
 <div>
+
 <h1>Hello {{ app.user.username }}</h1>
+
+{% if is_granted('ROLE_ADMIN') %}
+ Que veux-tu faire ?
+    <ul>
+        <li><a href="{{ path('user_index') }}">Accéder à la gestion des utilisateurs</a></li>
+        <li><a href="{{ path('bank_account_index') }}">Accéder à la gestion des comptes bancaires</a></li>
+    </ul>
+    <a href="{{ path('logout') }}">Me déconnecter</a>
+
+{% endif %}
+
+{% if is_granted('ROLE_USER') %}
+<div>
+<h1>Mon compte</h1>
+{# <p>{{app.bank_account.id}}</p> #}
+</div>
+
+<a href="{{ path('logout') }}">Me déconnecter</a>
+
+{# <a href="{{ path('user') }}">Acceder à mon espace personnel</a> #}
+{% endif %}
+
 </div>

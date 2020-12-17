@@ -9,12 +9,12 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ app.user.username }}, bienvenue sur ton compte Admin! </h1>
+    <h1>Hello {{ app.user.username }}, bienvenue sur ton Dashboard!</h1>
 
     Que veux-tu faire ?
     <ul>
-        <li><a href="{{ path('user_index') }}">User edit</a></li>
-        <li><a href="{{ path('bank_account_index') }}">Bank User edt</a></li>
+        <li><a href="{{ path('user_index') }}">Accéder à la gestion des utilisateurs</a></li>
+        <li><a href="{{ path('bank_account_index') }}">Accéder à la gestion des comptes bancaires</a></li>
     </ul>
     <a href="{{ path('logout') }}">Me déconnecter</a>
 </div>
