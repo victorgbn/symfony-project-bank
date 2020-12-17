@@ -15,7 +15,6 @@
                 <th>Name</th>
                 <th>Lastname</th>
                 <th>Birthday</th>
-                <th>Admin</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -29,7 +28,6 @@
                 <td>{{ user.name }}</td>
                 <td>{{ user.lastname }}</td>
                 <td>{{ user.birthday ? user.birthday|date('Y-m-d') : '' }}</td>
-                <td>{{ user.admin ? 'Yes' : 'No' }}</td>
                 <td>
                     <a href="{{ path('user_show', {'id': user.id}) }}">show</a>
                     <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>

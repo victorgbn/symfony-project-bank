@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Length;
 
@@ -17,16 +18,20 @@ class UserType extends AbstractType
     {
         $builder
             ->add('username')
-            ->add('roles', CheckboxType::class, [
-                'mapped' => false,
-                'label' => 'isAdmin',
-                'required' => false
+            ->add('roles', ChoiceType::class, [
+                'choices' => [
+                    'Utilisateur' => 'ROLE_USER',
+                    'Administrateur' => 'ROLE_ADMIN'
+                ],
+                'expanded' => true,
+                'multiple' => true,
+                'label' => 'Rôles' 
             ])
-            ->add('password')
+            ->add('password', PasswordType::class)
             ->add('name')
             ->add('lastname')
             ->add('birthday')
-            ->add('admin')
+            // ->add('admin')
         ;
     }
 
