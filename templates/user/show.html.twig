@@ -40,6 +40,20 @@
                 <td>{{ user.admin ? 'Yes' : 'No' }}</td>
             </tr>
         </tbody>
+
+{# test #}
+        <tbody>
+            {% for bankAccountOwned in user.bankAccountOwned %}
+                <tr>
+                    <th>IBAN</th>
+                    <td> {{ bankAccountOwned.bankaccount.iban }} </td>
+                </tr>
+                <tr>
+                    <th>Solde</th>
+                    <td> {{ bankAccountOwned.bankaccount.balance }} €</td>
+                </tr>
+            {% endfor %}
+        </tbody>
     </table>
 
     <a href="{{ path('user_index') }}">back to list</a>

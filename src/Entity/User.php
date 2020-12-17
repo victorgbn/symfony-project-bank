@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -55,6 +57,16 @@ class User implements UserInterface
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $admin;
+
+    /**
+     * @ORM\OneToMany(targetEntity=UserBankAccount::class, mappedBy="person")
+     */
+    private $bankAccountOwned;
+
+    public function __construct()
+    {
+        $this->bankAccountOwned = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -179,5 +191,35 @@ class User implements UserInterface
 
     public function __toString(){
         return $this->username;
+    }
+
+    /**
+     * @return Collection|UserBankAccount[]
+     */
+    public function getBankAccountOwned(): Collection
+    {
+        return $this->bankAccountOwned;
+    }
+
+    public function addBankAccountOwned(UserBankAccount $bankAccountOwned): self
+    {
+        if (!$this->bankAccountOwned->contains($bankAccountOwned)) {
+            $this->bankAccountOwned[] = $bankAccountOwned;
+            $bankAccountOwned->setPerson($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBankAccountOwned(UserBankAccount $bankAccountOwned): self
+    {
+        if ($this->bankAccountOwned->removeElement($bankAccountOwned)) {
+            // set the owning side to null (unless already changed)
+            if ($bankAccountOwned->getPerson() === $this) {
+                $bankAccountOwned->setPerson(null);
+            }
+        }
+
+        return $this;
     }
 }

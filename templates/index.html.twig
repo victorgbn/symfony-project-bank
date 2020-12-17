@@ -16,6 +16,22 @@
 <div>
 <h1>Mon compte</h1>
 {# <p>{{app.bank_account.id}}</p> #}
+
+<table>
+  <tbody>
+            {% for bankAccountOwned in app.user.bankAccountOwned %}
+                <tr>
+                    <th>IBAN</th>
+                    <td> {{ bankAccountOwned.bankaccount.iban }} </td>
+                </tr>
+                <tr>
+                    <th>Solde</th>
+                    <td> {{ bankAccountOwned.bankaccount.balance }} €</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+</table>
+
 </div>
 
 <a href="{{ path('logout') }}">Me déconnecter</a>

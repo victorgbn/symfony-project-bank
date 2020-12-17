@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\BankAccountRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -32,6 +34,16 @@ class BankAccount
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
+
+    /**
+     * @ORM\OneToMany(targetEntity=UserBankAccount::class, mappedBy="bankaccount")
+     */
+    private $bankAccountOwner;
+
+    public function __construct()
+    {
+        $this->bankAccountOwner = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -70,6 +82,40 @@ class BankAccount
     public function setUser(User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function __toString(){
+        return $this->iban;
+    }
+
+    /**
+     * @return Collection|UserBankAccount[]
+     */
+    public function getBankAccountOwner(): Collection
+    {
+        return $this->bankAccountOwner;
+    }
+
+    public function addBankAccountOwner(UserBankAccount $bankAccountOwner): self
+    {
+        if (!$this->bankAccountOwner->contains($bankAccountOwner)) {
+            $this->bankAccountOwner[] = $bankAccountOwner;
+            $bankAccountOwner->setBankaccount($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBankAccountOwner(UserBankAccount $bankAccountOwner): self
+    {
+        if ($this->bankAccountOwner->removeElement($bankAccountOwner)) {
+            // set the owning side to null (unless already changed)
+            if ($bankAccountOwner->getBankaccount() === $this) {
+                $bankAccountOwner->setBankaccount(null);
+            }
+        }
 
         return $this;
     }
