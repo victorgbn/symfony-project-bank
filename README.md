@@ -7,7 +7,7 @@ Symfony bank is a project carried out as part of my student training. The goal i
 After installing the project, fictitious users must be retrieved to use the application.
 You must have Symfony installed on your machine. 
 
-## Getting Started
+### Database
 
 Add the database with these commands : 
 
