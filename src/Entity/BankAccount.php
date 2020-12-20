@@ -40,9 +40,21 @@ class BankAccount
      */
     private $bankAccountOwner;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Transaction::class, mappedBy="debitedAccount")
+     */
+    private $debit;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Transaction::class, mappedBy="CreditedAccount")
+     */
+    private $credit;
+
     public function __construct()
     {
         $this->bankAccountOwner = new ArrayCollection();
+        $this->debit = new ArrayCollection();
+        $this->credit = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -114,6 +126,66 @@ class BankAccount
             // set the owning side to null (unless already changed)
             if ($bankAccountOwner->getBankaccount() === $this) {
                 $bankAccountOwner->setBankaccount(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Transaction[]
+     */
+    public function getDebit(): Collection
+    {
+        return $this->debit;
+    }
+
+    public function addDebit(Transaction $debit): self
+    {
+        if (!$this->debit->contains($debit)) {
+            $this->debit[] = $debit;
+            $debit->setDebitedAccount($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDebit(Transaction $debit): self
+    {
+        if ($this->debit->removeElement($debit)) {
+            // set the owning side to null (unless already changed)
+            if ($debit->getDebitedAccount() === $this) {
+                $debit->setDebitedAccount(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Transaction[]
+     */
+    public function getCredit(): Collection
+    {
+        return $this->credit;
+    }
+
+    public function addCredit(Transaction $credit): self
+    {
+        if (!$this->credit->contains($credit)) {
+            $this->credit[] = $credit;
+            $credit->setCreditedAccount($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCredit(Transaction $credit): self
+    {
+        if ($this->credit->removeElement($credit)) {
+            // set the owning side to null (unless already changed)
+            if ($credit->getCreditedAccount() === $this) {
+                $credit->setCreditedAccount(null);
             }
         }
 
