@@ -3,7 +3,8 @@
 {% block title %}BankAccount index{% endblock %}
 
 {% block body %}
-    <h1>BankAccount index</h1>
+<div class="container">
+    <h1 class="text-center mt-5">Liste des comptes</h1>
 
     <table class="table">
         <thead>
@@ -19,10 +20,10 @@
             <tr>
                 <td>{{ bank_account.id }}</td>
                 <td>{{ bank_account.iban }}</td>
-                <td>{{ bank_account.balance }}</td>
+                <td>{{ bank_account.balance }} €</td>
                 <td>
-                    <a href="{{ path('bank_account_show', {'id': bank_account.id}) }}">show</a>
-                    <a href="{{ path('bank_account_edit', {'id': bank_account.id}) }}">edit</a>
+                    <a href="{{ path('bank_account_show', {'id': bank_account.id}) }}" class="btn btn-info">voir</a>
+                    <a href="{{ path('bank_account_edit', {'id': bank_account.id}) }}" class="btn btn-warning">éditer</a>
                 </td>
             </tr>
         {% else %}
@@ -33,5 +34,8 @@
         </tbody>
     </table>
 
-    <a href="{{ path('bank_account_new') }}">Create new</a>
+    <a href="{{ path('bank_account_new') }}">Créer un nouveau compte</a>
+    <br>
+    <a href="{{ path('index') }}">Retour</a>
+</div>
 {% endblock %}

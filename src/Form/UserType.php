@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class UserType extends AbstractType
 {
@@ -30,7 +31,11 @@ class UserType extends AbstractType
             ->add('password', PasswordType::class)
             ->add('name')
             ->add('lastname')
-            ->add('birthday')
+            ->add('birthday', DateType::class,
+                [
+                    'years' => range(1980, 2020),
+                    'format' => 'dd MMMM yyyy'
+                ])
             // ->add('admin')
         ;
     }

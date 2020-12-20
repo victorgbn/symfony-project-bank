@@ -1,21 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User index{% endblock %}
+{% block title %}Liste des utilisateurs{% endblock %}
 
 {% block body %}
-    <h1>User index</h1>
+    <h1 class="mt-5 mb-3 text-center">Liste des utilisateurs</h1>
 
+    <div class="mr-5 ml-5">
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Username</th>
+                <th>Nom d'utilisateurs</th>
                 <th>Roles</th>
-                <th>Password</th>
-                <th>Name</th>
-                <th>Lastname</th>
-                <th>Birthday</th>
-                <th>actions</th>
+                <th>Mot de passe</th>
+                <th>Prénom</th>
+                <th>Nom</th>
+                <th>Anniversaire</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -29,8 +30,8 @@
                 <td>{{ user.lastname }}</td>
                 <td>{{ user.birthday ? user.birthday|date('Y-m-d') : '' }}</td>
                 <td>
-                    <a href="{{ path('user_show', {'id': user.id}) }}">show</a>
-                    <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
+                    <a href="{{ path('user_show', {'id': user.id}) }}" class="btn btn-info">voir</a>
+                    <a href="{{ path('user_edit', {'id': user.id}) }}" class="btn btn-warning">éditer</a>
                 </td>
             </tr>
         {% else %}
@@ -41,5 +42,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('user_new') }}">Create new</a>
+    <a href="{{ path('user_new') }}" class="btn btn-primary">Ajouter</a>
+     <a href="{{ path('index') }}" class="btn btn-link">Retour</a>
+    <div>
 {% endblock %}

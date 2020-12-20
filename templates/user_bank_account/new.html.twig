@@ -3,9 +3,11 @@
 {% block title %}New UserBankAccount{% endblock %}
 
 {% block body %}
-    <h1>Create new UserBankAccount</h1>
+<div class="container mt-5">
+    <h1 class="text-center">Lier un nouveau compte bancaire</h1>
 
     {{ include('user_bank_account/_form.html.twig') }}
 
-    <a href="{{ path('user_bank_account_index') }}">back to list</a>
+    <a href="{{ path('user_bank_account_index') }}">Retour</a>
+</div>
 {% endblock %}

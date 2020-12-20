@@ -1,43 +1,70 @@
-<div>
+{% extends 'base.html.twig' %}
+{% block title %}Page d'accueil{% endblock %}
 
-<h1>Hello {{ app.user.username }}</h1>
-
+{% block body %}
 {% if is_granted('ROLE_ADMIN') %}
- Que veux-tu faire ?
-    <ul>
+<nav class="navbar navbar-dark bg-dark">
+    <a href="{{ path('logout') }}" class="btn btn-danger">Me déconnecter</a>
+</nav>
+<div class="container mt-5">
+    <h1 class="text-center">Hello {{ app.user.username }}, </br><span class="h2">bienvenue sur ton interface
+            administrateur</span></h1>
+
+    <ul class="mt-3">
         <li><a href="{{ path('user_index') }}">Accéder à la gestion des utilisateurs</a></li>
         <li><a href="{{ path('bank_account_index') }}">Accéder à la gestion des comptes bancaires</a></li>
-        <li><a href="{{ path('user_bank_account_index') }}">Acceder aux liaisons des comptes entre les utilisateurs</a></li>
+        <li><a href="{{ path('user_bank_account_index') }}">Acceder aux liaisons des comptes entre les utilisateurs</a>
+        </li>
     </ul>
-    <a href="{{ path('logout') }}">Me déconnecter</a>
 
-{% endif %}
+    {% endif %}
 
-{% if is_granted('ROLE_USER') %}
-<div>
-<h1>Mon compte</h1>
-{# <p>{{app.bank_account.id}}</p> #}
+    {% if is_granted('ROLE_USER') %}
 
-<table>
-  <tbody>
-            {% for bankAccountOwned in app.user.bankAccountOwned %}
-                <tr>
-                    <th>IBAN</th>
-                    <td> {{ bankAccountOwned.bankaccount.iban }} </td>
-                </tr>
-                <tr>
-                    <th>Solde</th>
-                    <td> {{ bankAccountOwned.bankaccount.balance }} €</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-</table>
+    <div {% if is_granted('ROLE_ADMIN') %} class="d-none" {% endif %}>
 
+        <nav class="navbar navbar-dark bg-dark">
+            <a href="{{ path('logout') }}" class="btn btn-danger">Me déconnecter</a>
+        </nav>
+        <h1 class="text-center mt-5">Bienvenue, <span class="font-weight-bold">{{ app.user.username }}</span></h1>
+        
+        <div class="container mt-3">
+            <table class="table">
+                <tbody>
+                    {% for bankAccountOwned in app.user.bankAccountOwned %}
+                    <tr>
+                        <th>IBAN</th>
+                        <th>Solde</th>
+                        <th>IBAN bénéficiaire</th>
+                    </tr>
+                    <tr>
+                        <td> {{ bankAccountOwned.bankaccount.iban }} </td>
+                        <td> {{ bankAccountOwned.bankaccount.balance }} €</td>
+                        {% for beneficiaries in app.user.beneficiaries %}
+                        <td> {{ beneficiaries.iban }} </td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <h2 class="h3 mt-5">Liste de mes bénéficiaires</h2>
+            <table class="table">
+                <tbody>
+                    {% for beneficiaries in app.user.beneficiaries %}
+                    <tr>
+                        <th>IBAN</th>
+                    </tr>
+                    <tr>
+                        <td> {{ beneficiaries.iban }} </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+                 <a href="{{ path('beneficiary_index') }}" class="btn btn-secondary">Ajouter un bénéficiaire</a>
+        </div>
+    </div>
+
+    {% endif %}
 </div>
-
-<a href="{{ path('logout') }}">Me déconnecter</a>
-
-{# <a href="{{ path('user') }}">Acceder à mon espace personnel</a> #}
-{% endif %}
-
-</div>
+{% endblock %}
