@@ -30,14 +30,14 @@ class AppFixtures extends Fixture
         ));
 
         $user = new User();
-        $user->setUsername('toto');
-        $user->setName('toto');
-        $user->setLastname('T');
+        $user->setUsername('root');
+        $user->setName('root');
+        $user->setLastname('root');
         $user->setBirthday(new \DateTime('2000-07-16'));
         $user->setRoles(['ROLE_USER']);
         $user->setPassword($this->passwordEncoder->encodePassword(
             $user,
-            'toto01'
+            'root'
         ));
 
         $manager->persist($user);
