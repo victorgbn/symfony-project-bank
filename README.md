@@ -9,11 +9,13 @@ You must have Symfony installed on your machine.
 
 ### Database
 
+Update `.env` file with your logs to your database
+
 Add the database with these commands : 
 
 ```
 php bin/console make:migration
- php bin/console doctrine:migrations:migrate
+php bin/console doctrine:migrations:migrate
 ```
 
 ### User root and admin
