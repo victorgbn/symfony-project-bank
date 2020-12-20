@@ -7,6 +7,15 @@ Symfony bank is a project carried out as part of my student training. The goal i
 After installing the project, fictitious users must be retrieved to use the application.
 You must have Symfony installed on your machine. 
 
+## Getting Started
+
+Add the database with these commands : 
+
+```
+php bin/console make:migration
+ php bin/console doctrine:migrations:migrate
+```
+
 ### User root and admin
 
 At the root cause of the project, launch this command
