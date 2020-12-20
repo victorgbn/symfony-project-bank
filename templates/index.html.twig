@@ -35,14 +35,10 @@
                     <tr>
                         <th>IBAN</th>
                         <th>Solde</th>
-                        <th>IBAN bénéficiaire</th>
                     </tr>
                     <tr>
                         <td> {{ bankAccountOwned.bankaccount.iban }} </td>
                         <td> {{ bankAccountOwned.bankaccount.balance }} €</td>
-                        {% for beneficiaries in app.user.beneficiaries %}
-                        <td> {{ beneficiaries.iban }} </td>
-                        {% endfor %}
                     </tr>
                     {% endfor %}
                 </tbody>
